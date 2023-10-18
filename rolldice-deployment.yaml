@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: rolldice
-        image: public.ecr.aws/y3l2n0n4/buteco-gallery:latest
+        image: public.ecr.aws/y3l2n0n4/rolldice-python-app:latest
         ports:
         - containerPort: 5000
         env:
