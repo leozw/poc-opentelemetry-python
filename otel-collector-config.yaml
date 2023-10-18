@@ -1,0 +1,56 @@
+receivers:
+  otlp:
+    protocols:
+      grpc: {}
+      http: {}
+
+exporters:
+  logging:
+    loglevel: debug
+  otlp:
+    endpoint: https://tempo-prod-12-prod-sa-east-0.grafana.net:443
+    headers:
+      Authorization: Basic NjI1OTU4OmV5SnJJam9pTkRnMFpUUXlPRFEzTURjMVpESTFOV1JqTnpjd00yTTJNamN4T0RkbE56UTVNMkUwTmpWbFpTSXNJbTRpT2lKMFpYTjBaU0IwWlcxd2J5SXNJbWxrSWpvNE9EVTJNamQ5
+  prometheusremotewrite:
+    endpoint: https://1055399:eyJrIjoiNGJjN2Y3ZjNiY2MyYmQ0MzU2ZTllM2Q5YzFkNmFhODI4MWZhZjlmNiIsIm4iOiJidXRlY28iLCJpZCI6ODg1NjI3fQ==@prometheus-prod-25-prod-sa-east-0.grafana.net/api/prom/push
+  loki:
+    endpoint: https://logs-prod-015.grafana.net/loki/api/v1/push
+    headers:
+      Authorization: Basic NjI5NDU0OmdsY19leUptSW1Sam9pSktVeklpd2ljMnhoY21GdWMzUWlPbTlwWkNJNklqRjFjM05pYjIxdGFXNTBjbUYwYVc5dUluMC0t
+  prometheus: 
+    endpoint: 0.0.0.0:1234
+
+processors:
+  batch:
+    timeout: 10s
+  filter:
+    metrics:
+      exclude:
+        match_type: strict
+        metric_names:
+          - db.client.connections.usage
+
+service:
+  pipelines:
+    metrics:
+      receivers:
+        - otlp
+      processors: 
+        - batch
+        - filter
+      exporters:
+        - prometheusremotewrite
+    traces:
+      receivers:
+        - otlp
+      processors: 
+        - batch
+      exporters:
+        - otlp
+    logs:
+      receivers:
+        - otlp
+      processors: 
+        - batch
+      exporters:
+        - loki

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolldice-deployment
+  labels:
+    app: rolldice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rolldice
+  template:
+    metadata:
+      labels:
+        app: rolldice
+    spec:
+      containers:
+      - name: rolldice
+        image: public.ecr.aws/y3l2n0n4/buteco-gallery:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: SVC_COLLECTOR
+          value: collector-opentelemetry-collector.svc.cluster.local:4317

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collector-config
+data:
+  collector.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc: 
+
+    exporters:
+      otlp:
+        endpoint: https://tempo-prod-12-prod-sa-east-0.grafana.net:443
+        headers:
+          Authorization: Basic NjI1OTU4OmV5SnJJam9pTkRnMFpUUXlPRFEzTURjMVpESTFOV1JqTnpjd00yTTJNamN4T0RkbE56UTVNMkUwTmpWbFpTSXNJbTRpT2lKMFpYTjBaU0IwWlcxd2J5SXNJbWxrSWpvNE9EVTJNamQ5
+      prometheusremotewrite:
+        endpoint: https://1055399:eyJrIjoiNGJjN2Y3ZjNiY2MyYmQ0MzU2ZTllM2Q5YzFkNmFhODI4MWZhZjlmNiIsIm4iOiJidXRlY28iLCJpZCI6ODg1NjI3fQ==@prometheus-prod-25-prod-sa-east-0.grafana.net/api/prom/push
+
+    processors:
+      batch:
+        timeout: 10s
+
+    service:
+      pipelines:
+        metrics:
+          receivers:
+            - otlp
+          processors: [batch]
+          exporters: [prometheusremotewrite]
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp]

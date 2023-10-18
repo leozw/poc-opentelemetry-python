@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  flask-app:
+    image: public.ecr.aws/y3l2n0n4/rolldice-python-app:latest
+    ports:
+      - "5000:5000"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # GRPC
+      # - "4318:4318" # HTTP
+      - "8888:8888" # Metrics OpenTelemetry
