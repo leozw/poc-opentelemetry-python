@@ -23,6 +23,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     - name: Build and push
-      run: docker build -t leonardozwirtes/python-app-gh:${{ github.run_number }} . && docker push leonardozwirtes/python-app-gh:${{ github.run_number }}
+      run: docker build -f Dockerfile -t leonardozwirtes/python-app-gh:${{ github.run_number }} . && docker push leonardozwirtes/python-app-gh:${{ github.run_number }}
                                 
 
