@@ -24,4 +24,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: emr001/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        tags: leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}
