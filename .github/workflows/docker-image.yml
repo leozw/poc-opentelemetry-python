@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  IMAGE_NAME: python-app-gh
+
 jobs:
 
   build:
