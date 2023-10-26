@@ -15,12 +15,12 @@ spec:
         app: rolldice
     spec:
       containers:
-      - name: rolldice
-        image: leonardozwirtes/python-app-gh:latest
-        ports:
-        - containerPort: 5000
-        env:
-        - name: SVC_COLLECTOR
-          value: collector-opentelemetry-collector.svc.cluster.local:4317
+        - name: rolldice
+          image: leonardozwirtes/python-app-gh:25
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SVC_COLLECTOR
+              value: collector-opentelemetry-collector.svc.cluster.local:4317
       # nodeSelector:
       #   name: observability
