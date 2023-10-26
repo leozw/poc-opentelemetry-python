@@ -36,6 +36,10 @@ jobs:
         . venv/bin/activate
         coverage xml
 
+    - name: Clean __pycache__ and .pyc files
+      run: |
+        find . -name "*.pyc" -exec rm -f {} \;
+        find . -name "__pycache__" -exec rm -rf {} \;
 
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
