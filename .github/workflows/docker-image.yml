@@ -24,6 +24,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
+        export TEST_ENV=true
         coverage run -m unittest discover
 
     - name: Generate coverage report

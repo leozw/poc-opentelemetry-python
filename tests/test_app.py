@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
-from random import randint
 from flask import Flask
+from app import app as flask_app
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
@@ -11,20 +11,8 @@ from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 class TestRollDice(unittest.TestCase):
     def setUp(self):
-        self.app = Flask(__name__)
+        self.app = flask_app  # Use a app importada
         self.client = self.app.test_client()
-        FlaskInstrumentor().instrument_app(self.app)
-        self.configure_opentelemetry()
-
-    def configure_opentelemetry(self):
-        trace.set_tracer_provider(
-            TracerProvider(
-                resource=Resource.create(attributes={"service.name": "rolldice-service"})
-            )
-        )
-        otlp_exporter = OTLPSpanExporter(endpoint="opentelemetrycollector.elastic-stack.svc.cluster.local:4317", insecure=True)
-        span_processor = BatchSpanProcessor(otlp_exporter)
-        trace.get_tracer_provider().add_span_processor(span_processor)
 
     def test_roll_dice(self):
         with patch('random.randint', return_value=3):
