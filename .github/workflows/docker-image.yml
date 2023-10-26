@@ -25,12 +25,17 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
-    - name: Check Quality Gate
-      uses: sonarsource/sonarqube-qualitygate-action@master
-      with:
-        host: ${{ secrets.SONAR_HOST_URL }}
-        token: ${{ secrets.SONAR_TOKEN }}
-        projectKey: python-app
+    - name: SonarQube Quality Gate check
+      id: sonarqube-quality-gate-check
+      uses: sonarsource/sonarqube-quality-gate-action@master
+      timeout-minutes: 5
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+    - name: "Show SonarQube Quality Gate Status"
+      run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
+    
     
             
     - name: Login to DockerHub
