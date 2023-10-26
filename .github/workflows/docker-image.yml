@@ -23,5 +23,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     - name: Build and push
-      run: docker build . --file Dockerfile --tag python-app:$(date +%s)
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
