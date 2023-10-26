@@ -33,7 +33,7 @@ jobs:
         tags: leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
     - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@v1
       with:
         event-type: new-image
         client-payload: '{"image": "leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}'
