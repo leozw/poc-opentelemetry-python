@@ -7,13 +7,17 @@ data:
     receivers:
       otlp:
         protocols:
-          grpc: 
+          grpc:
+          http:
 
     exporters:
-      otlp:
-        endpoint: https://tempo-prod-12-prod-sa-east-0.grafana.net:443
+      elasticsearch/trace: 
+        tls:
+          insecure: true
+          insecure_skip_verify: true
+        endpoints: "https://apm-server-apm-http.elastic-stack.svc:8200"  
         headers:
-          Authorization: Basic NjI1OTU4OmV5SnJJam9pTkRnMFpUUXlPRFEzTURjMVpESTFOV1JqTnpjd00yTTJNamN4T0RkbE56UTVNMkUwTmpWbFpTSXNJbTRpT2lKMFpYTjBaU0IwWlcxd2J5SXNJbWxrSWpvNE9EVTJNamQ5
+          Authorization: "Bearer C98v8AF9i9qO0cec20Y2o6Ba" 
       prometheusremotewrite:
         endpoint: https://1055399:eyJrIjoiNGJjN2Y3ZjNiY2MyYmQ0MzU2ZTllM2Q5YzFkNmFhODI4MWZhZjlmNiIsIm4iOiJidXRlY28iLCJpZCI6ODg1NjI3fQ==@prometheus-prod-25-prod-sa-east-0.grafana.net/api/prom/push
 
@@ -31,4 +35,4 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [otlp]
+          exporters: [elasticsearch/trace]

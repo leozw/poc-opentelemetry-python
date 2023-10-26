@@ -18,7 +18,7 @@ trace.set_tracer_provider(
 # otlp_exporter = OTLPSpanExporter(endpoint="otel-collector:4317", insecure=True)
 
 # Kuberntes
-otlp_exporter = OTLPSpanExporter(endpoint="opentelemetrycollector.default.svc.cluster.local:4317", insecure=True)
+otlp_exporter = OTLPSpanExporter(endpoint="opentelemetrycollector.elastic-stack.svc.cluster.local:4317", insecure=True)
 
 span_processor = BatchSpanProcessor(otlp_exporter)
 

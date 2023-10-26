@@ -2,7 +2,10 @@ version: '3'
 
 services:
   flask-app:
-    image: public.ecr.aws/y3l2n0n4/rolldice-python-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: public.ecr.aws/y3l2n0n4/rolldice-python-app:latest
     ports:
       - "5000:5000"
 
