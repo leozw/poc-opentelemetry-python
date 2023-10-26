@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: rolldice
-        image: docker push leonardozwirtes/python-app-gh:latest
+        image: leonardozwirtes/python-app-gh:latest
         ports:
         - containerPort: 5000
         env:
