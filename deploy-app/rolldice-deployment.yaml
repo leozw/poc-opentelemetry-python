@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: rolldice
-          image: leonardozwirtes/python-app-gh:25
+          image: leonardozwirtes/python-app-gh:26
           ports:
             - containerPort: 5000
           env:
