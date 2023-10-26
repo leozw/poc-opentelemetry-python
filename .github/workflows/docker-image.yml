@@ -42,4 +42,9 @@ jobs:
         repository: leozw/poc-opentelemetry-python/deploy-app
         event-type: new-image
         client-payload: '{"image": "leonardozwirtes/${{ env.IMAGE_NAME }}:v1.0.${{ github.run_number }}"}' 
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         
