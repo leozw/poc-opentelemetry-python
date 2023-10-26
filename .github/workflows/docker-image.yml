@@ -30,7 +30,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        tags: leonardozwirtes/${{ env.IMAGE_NAME }}:v1.0.${{ github.run_number }}
 
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1
@@ -38,5 +38,5 @@ jobs:
         token: ${{ secrets.TOKEN_REPO_PYTHON }}
         repository: leozw/poc-opentelemetry-python/deploy-app
         event-type: new-image
-        client-payload: '{"image": "leonardozwirtes/${{ env.IMAGE_NAME }}:${{ github.run_number }}"}' 
+        client-payload: '{"image": "leonardozwirtes/${{ env.IMAGE_NAME }}:v1.0.${{ github.run_number }}"}' 
         
