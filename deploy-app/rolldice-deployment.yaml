@@ -22,5 +22,5 @@ spec:
         env:
         - name: SVC_COLLECTOR
           value: collector-opentelemetry-collector.svc.cluster.local:4317
-      nodeSelector:
-        name: observability
+      # nodeSelector:
+      #   name: observability
