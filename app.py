@@ -28,10 +28,6 @@ app = Flask(__name__)
 
 FlaskInstrumentor().instrument_app(app)
 
-@app.route("/hello")
-def roll_dice():
-    return str(roll())
-
 @app.route("/rolldice")
 def roll_dice():
     return str(roll())
