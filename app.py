@@ -17,7 +17,7 @@ def configure_opentelemetry():
             resource=Resource.create(attributes={"service.name": "rolldice-service"})
         )
     )
-    otlp_exporter = OTLPSpanExporter(endpoint="grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:14250", insecure=True)
+    otlp_exporter = OTLPSpanExporter(endpoint="grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:4317", insecure=True)
     span_processor = BatchSpanProcessor(otlp_exporter)
     trace.get_tracer_provider().add_span_processor(span_processor)
 
