@@ -49,22 +49,10 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
     - name: SonarQube Quality Gate check
-      id: sonarqube-quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 5
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-    - name: "Fail if Quality Gate failed"
-      run: |
-        if [[ "${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}" != "PASSED" ]]; then
-          echo "Quality Gate has failed. Exiting."
-          exit 1
-        fi
-      
-    - name: "Show SonarQube Quality Gate Status"
-      run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
